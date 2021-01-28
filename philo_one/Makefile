@@ -6,14 +6,15 @@
 #    By: iboeters <iboeters@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/15 13:21:22 by iboeters      #+#    #+#                  #
-#    Updated: 2021/01/25 11:09:41 by iboeters      ########   odam.nl          #
+#    Updated: 2021/01/28 11:04:16 by iboeters      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo_one
-SRCS	= main.c\
-		  philo_one_utils.c
-INC		= philo_one.h
+SRCS	= philosophers.c\
+		  philo_one_utils.c\
+		  eat_sleep_think_repeat.c
+INC		= philosophers.h
 OBJS	= ${SRCS:%.c=%.o}
 FLAGS	= -Wall -Werror -Wextra -pthread
 
@@ -24,9 +25,9 @@ RESET	= \033[0m
 
 all: $(NAME)
 
-%.o:%.cpp
+%.o:%.c
 	@echo "$(GREY)$(BG_GREY)Compiling $<$(RESET)"
-	@gcc $(FLAGS) -I. $(INC) -c $^ -o $@
+	@gcc $(FLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
 	@gcc $(FLAGS) $(OBJS) -I. $(INC) -o $(NAME)
