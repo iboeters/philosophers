@@ -1,7 +1,9 @@
 # philosophers
 
 Subject on solving the dining philosophers dilemma in three different ways. Philosophers are sitting at a round table, and can either be eating, sleeping or thinking.
+
 There are as many forks as philosophers and each philosopher needs two forks to eat. When a philosopher cannot eat for a certain amount of time, it will die. 
+
 3 different solutions:
 
 ## philo_one
