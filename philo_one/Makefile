@@ -6,14 +6,16 @@
 #    By: iboeters <iboeters@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/15 13:21:22 by iboeters      #+#    #+#                  #
-#    Updated: 2021/01/28 11:04:16 by iboeters      ########   odam.nl          #
+#    Updated: 2021/01/29 14:41:58 by iboeters      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo_one
 SRCS	= philosophers.c\
-		  philo_one_utils.c\
-		  eat_sleep_think_repeat.c
+		  philosophers_utils.c\
+		  eat_sleep_think_repeat.c\
+		  valid_input.c\
+		  threading.c
 INC		= philosophers.h
 OBJS	= ${SRCS:%.c=%.o}
 FLAGS	= -Wall -Werror -Wextra -pthread

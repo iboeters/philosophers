@@ -6,49 +6,50 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:09:29 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/01/28 11:36:39 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/01/29 14:38:44 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		*invalid_return(char *str)
+void	init_philo(t_philosopher *philo, t_table *tab, int nr)
 {
-	printf("%s\n", str);
-	return (NULL);
+	philo->nr = nr;
+	philo->times_eaten = 0;
+	philo->time_to_die = tab->input[1];
+	philo->time_to_eat = tab->input[2];
+	philo->time_to_sleep = tab->input[3];
+	philo->l_fork = philo->nr;
+	if (philo->nr == 1)
+		philo->r_fork = tab->input[0];
+	else
+		philo->r_fork = philo->nr - 1;
+	philo->arg_5 = tab->arg_5;
+	philo->last_meal = tab->start_program;
+	philo->eating = 0;
+	philo->dead_philo = 0;
+	philo->tab = tab;
 }
 
-int		*valid_input(int argc, char **argv)
+int		init_philosophers(t_philos *philos, t_table *tab)
 {
-	int		i;
-	int		*ret;
-	int		size;
+	int	i;
 
 	i = 0;
-	if (argc < 5 || argc > 6)
-		return (invalid_return("Invalid amount of arguments"));
-	size = ft_atoi(argv[1]);
-	if (size <= 1) // you need at least 2 forks to eat
-		return (invalid_return("Invalid argument"));
-	ret = (int *)malloc(argc * sizeof(int));
-	if (ret == NULL)
-		return (invalid_return("Malloc fail"));
-	printf("Input: \n");
-	while (i + 1 < argc)
+	philos->p = (t_philosopher *)malloc(tab->input[0] *
+	sizeof(t_philosopher));
+	if (!philos->p)
 	{
-		ret[i] = ft_atoi(argv[i + 1]);
-		if (ret[i] <= 0)
-		{
-			if (ret)
-				free(ret);
-			return (invalid_return("Invalid argument"));
-		}
-		printf("[%i] %i \n", i, ret[i]);
+		printf("Malloc fail\n");
+		return (-1);
+	}
+	philos->dead_philo = 0;
+	while (i < tab->input[0])
+	{
+		init_philo(&philos->p[i], tab, i + 1);
 		i++;
 	}
-	if (i + 1 == argc)
-		return (ret);
-	return (NULL);
+	return (0);
 }
 
 int		init_table(int argc, char **argv, t_table *tab)
@@ -56,11 +57,9 @@ int		init_table(int argc, char **argv, t_table *tab)
 	int i;
 
 	i = 0;
-	tab->nr = 0;
 	tab->input = valid_input(argc, argv);
 	if (tab->input == NULL)
 		return (-1);
-	tab->n_philosophers = tab->input[0];
 	tab->arg_5 = 0;
 	if (argc == 6)
 		tab->arg_5 = 1;
@@ -84,44 +83,25 @@ int		init_table(int argc, char **argv, t_table *tab)
 
 int		main(int argc, char **argv)
 {
-	int				i;
 	t_table			tab;
+	t_philos		philos;
 	struct timeval	now;
 
-	i = 0;
 	if (init_table(argc, argv, &tab) == -1)
 		return (-1);
 	gettimeofday(&now, NULL);
-	tab.start_program = now.tv_usec;
-	printf("time start: %li\n", tab.start_program);
-	while (i < tab.input[0])
-	{
-		pthread_create(&(tab.threads[i]), NULL,
-		&eat_sleep_think_repeat, (void *)&tab);
-		usleep(175);
-		i++;
-	}
-	i = 0;
-	while (i < tab.input[0])
-	{
-		printf("[%i] waiting...\n", i + 1);
-		pthread_join(tab.threads[i], NULL); //block current threads until specified threads are finished: i.e. join all threads together
-		i++;
-	}
-	printf("printed once\n");
+	tab.start_program = now.tv_sec * 1000 + now.tv_usec / 1000;
+	if (init_philosophers(&philos, &tab) == -1)
+		return (-1);
+	if (threading(&philos, &tab) == -1)
+		return (-1);
 	if (tab.input)
 		free(tab.input);
 	if (tab.threads)
 		free(tab.threads);
 	if (tab.forks)
 		free(tab.forks);
-	gettimeofday(&now, NULL);
-	printf("time now: %li\n", now.tv_usec);
-	printf("duration program: %li\n", now.tv_usec - tab.start_program);
+	if (philos.p)
+		free(philos.p);
 	return (0);
 }
-
-/*
-** set last arg to (void *)&result (and declare an int *result),
-** to store result. In our program: pass a struct?
-*/
