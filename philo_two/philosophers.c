@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:09:29 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/01 15:19:47 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 15:43:28 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ int		init_table(int argc, char **argv, t_table *tab)
 	tab->threads = (pthread_t *)malloc(tab->input[0] *
 	sizeof(pthread_t));
 	tab->sem_forks = sem_open(SEM_NAME, O_CREAT, 0660, tab->input[0]);
+	tab->writing = sem_open("writing", O_CREAT, 0660, 1);
 	if (tab->sem_forks == SEM_FAILED)
 	{
-		printf("Error creating semaphore: %s\n", strerror(errno));
+		printf("Error creating semaphore\n");
 		return (-1);
 	}
 	if (!tab->threads)
@@ -73,7 +74,6 @@ int		init_table(int argc, char **argv, t_table *tab)
 		printf("Malloc fail\n");
 		return (-1);
 	}
-	pthread_mutex_init(&tab->writing, NULL);
 	return (0);
 }
 
@@ -97,7 +97,8 @@ int		main(int argc, char **argv)
 	if (tab.threads)
 		free(tab.threads);
 	sem_unlink(SEM_NAME);
-	if (sem_close(tab.sem_forks) == -1)
+	sem_unlink("writing");
+	if (sem_close(tab.sem_forks) == -1 || sem_close(tab.writing) == -1)
 	{
 		printf("Not a valid semaphore\n");
 		return (-1);

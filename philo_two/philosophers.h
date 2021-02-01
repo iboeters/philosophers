@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:26:31 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/01 15:18:59 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 15:43:56 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <sys/time.h>
 # include <semaphore.h>
 # include <fcntl.h>
-# include <errno.h>
-# include <string.h>
 
 # define SEM_NAME "forks"
 
@@ -30,7 +28,7 @@ typedef struct			s_table{
 	int					arg_5;
 	pthread_t			*threads;
 	sem_t				*sem_forks;
-	pthread_mutex_t		writing;
+	sem_t				*writing;
 	long long int		start_program;
 }						t_table;
 

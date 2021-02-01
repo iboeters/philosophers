@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 11:08:19 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/01/29 14:42:25 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 15:38:55 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ long long int	get_time_now(t_table *tab)
 	ret = gettimeofday(&now, NULL);
 	if (ret == -1)
 	{
-		pthread_mutex_lock(&tab->writing);
+		sem_wait(tab->writing);
 		printf("Gettimeofday() failed\n");
-		pthread_mutex_unlock(&tab->writing);
+		sem_post(tab->writing);
 		return (0);
 	}
 	return ((now.tv_sec * 1000) + now.tv_usec / 1000);
@@ -33,14 +33,14 @@ void			print(t_philosopher *philo, char *text)
 	long long int	now;
 
 	now = get_time_now(philo->tab);
-	pthread_mutex_lock(&philo->tab->writing);
+	sem_wait(philo->tab->writing);
 	if (philo->eating == 1)
 		printf("%lli %i %s [%i]\n", now - philo->tab->start_program, philo->nr,
 		text, philo->times_eaten);
 	else
 		printf("%lli %i %s\n", now - philo->tab->start_program, philo->nr,
 		text);
-	pthread_mutex_unlock(&philo->tab->writing);
+	sem_post(philo->tab->writing);
 }
 
 void			check_sign(const char *str, int *i, int *sign)
