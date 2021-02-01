@@ -6,7 +6,7 @@
 #    By: iboeters <iboeters@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/15 13:21:22 by iboeters      #+#    #+#                  #
-#    Updated: 2021/01/29 14:41:58 by iboeters      ########   odam.nl          #
+#    Updated: 2021/02/01 12:56:22 by iboeters      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRCS	= philosophers.c\
 		  philosophers_utils.c\
 		  eat_sleep_think_repeat.c\
 		  valid_input.c\
-		  threading.c
+		  threading.c\
+		  check_dead.c
 INC		= philosophers.h
 OBJS	= ${SRCS:%.c=%.o}
 FLAGS	= -Wall -Werror -Wextra -pthread

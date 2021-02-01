@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/29 14:38:37 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/01/29 14:41:36 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 12:49:20 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int		threading(t_philos *philos, t_table *tab)
 			printf("Error creating threads\n");
 			return (-1);
 		}
-		if (i % 2 == 0)
-			usleep(175);
 		i++;
 	}
 	if (pthread_create(&(philos->thread_dead), NULL, &check_dead,
