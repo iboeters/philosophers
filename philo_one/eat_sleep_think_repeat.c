@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 10:42:34 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/01 12:56:06 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 16:41:25 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	eat(t_philosopher *philo)
 	philo->eating = 1;
 	print(philo, "is eating");
 	philo->times_eaten++;
+	philo->last_meal = get_time_now(philo->tab);
 	usleep(philo->time_to_eat * 1000);
 	pthread_mutex_unlock(&philo->tab->forks[philo->r_fork] - 1);
 	pthread_mutex_unlock(&philo->tab->forks[philo->l_fork - 1]);
-	philo->last_meal = get_time_now(philo->tab);
 	philo->eating = 0;
 }
 
