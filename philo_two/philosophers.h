@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:26:31 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/01 15:43:56 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 17:10:30 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include <sys/time.h>
 # include <semaphore.h>
 # include <fcntl.h>
-
-# define SEM_NAME "forks"
 
 typedef struct			s_table{
 	int					*input;

@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:09:29 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/01 15:43:28 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/01 17:12:44 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,19 @@ int		init_philosophers(t_philos *philos, t_table *tab)
 
 int		init_table(int argc, char **argv, t_table *tab)
 {
+	struct timeval	now;
+
 	tab->input = valid_input(argc, argv);
 	if (tab->input == NULL)
 		return (-1);
 	tab->arg_5 = 0;
 	if (argc == 6)
 		tab->arg_5 = 1;
+	gettimeofday(&now, NULL);
+	tab->start_program = now.tv_sec * 1000 + now.tv_usec / 1000;
 	tab->threads = (pthread_t *)malloc(tab->input[0] *
 	sizeof(pthread_t));
-	tab->sem_forks = sem_open(SEM_NAME, O_CREAT, 0660, tab->input[0]);
+	tab->sem_forks = sem_open("forks", O_CREAT, 0660, tab->input[0]);
 	tab->writing = sem_open("writing", O_CREAT, 0660, 1);
 	if (tab->sem_forks == SEM_FAILED)
 	{
@@ -81,13 +85,11 @@ int		main(int argc, char **argv)
 {
 	t_table			tab;
 	t_philos		philos;
-	struct timeval	now;
 
+	sem_unlink("forks");
+	sem_unlink("writing");
 	if (init_table(argc, argv, &tab) == -1)
 		return (-1);
-	sem_unlink(SEM_NAME);
-	gettimeofday(&now, NULL);
-	tab.start_program = now.tv_sec * 1000 + now.tv_usec / 1000;
 	if (init_philosophers(&philos, &tab) == -1)
 		return (-1);
 	if (threading(&philos, &tab) == -1)
@@ -96,7 +98,7 @@ int		main(int argc, char **argv)
 		free(tab.input);
 	if (tab.threads)
 		free(tab.threads);
-	sem_unlink(SEM_NAME);
+	sem_unlink("forks");
 	sem_unlink("writing");
 	if (sem_close(tab.sem_forks) == -1 || sem_close(tab.writing) == -1)
 	{
