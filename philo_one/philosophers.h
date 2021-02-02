@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:26:31 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/01/29 14:45:24 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/02/02 21:51:46 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ void					*check_dead(void *philosophers);
 void					print(t_philosopher *philo, char *text);
 int						*valid_input(int argc, char **argv);
 int						threading(t_philos *philos, t_table *tab);
+int						fail_return(char *str);
 
 #endif
