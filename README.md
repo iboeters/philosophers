@@ -22,3 +22,10 @@ philosophers as processes and forks as semaphores.
 ``./philo_one [number of philosophers] [time_to_die(ms)] [time_to_eat(ms)] [time_to_sleep(ms)] [number_of_times_each_philosopher_must_eat]``
 
 f.e. to start the program. Fifth argument is optional.
+
+to do @Codam:
+	[ ] update Makefile -o output file
+	[ ] destroying mutex failed when philosopher dies
+	[V] philo_one
+	[ ] philo_two: all philos can grab a fork in the beginning
+	[ ] philo_three: 4 310 200 200: 2 philos die
