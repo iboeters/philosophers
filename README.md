@@ -25,7 +25,12 @@ f.e. to start the program. Fifth argument is optional.
 
 to do @Codam:
 	[ ] update Makefile -o output file
+
 	[ ] destroying mutex failed when philosopher dies
+
 	[V] philo_one
+
 	[ ] philo_two: all philos can grab a fork in the beginning
+
 	[ ] philo_three: 4 310 200 200: 2 philos die
+	
