@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 11:08:19 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/02 21:50:43 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/09/23 18:30:08 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ long long int	get_time_now(t_table *tab)
 	return ((now.tv_sec * 1000) + now.tv_usec / 1000);
 }
 
-void			print(t_philosopher *philo, char *text)
+void	print(t_philosopher *philo, char *text)
 {
 	long long int	now;
 
@@ -36,14 +36,14 @@ void			print(t_philosopher *philo, char *text)
 	pthread_mutex_lock(&philo->tab->writing);
 	if (philo->eating == 1)
 		printf("%lli %i %s [%i]\n", now - philo->tab->start_program, philo->nr,
-		text, philo->times_eaten);
+			text, philo->times_eaten);
 	else
 		printf("%lli %i %s\n", now - philo->tab->start_program, philo->nr,
-		text);
+			text);
 	pthread_mutex_unlock(&philo->tab->writing);
 }
 
-void			check_sign(const char *str, int *i, int *sign)
+void	check_sign(const char *str, int *i, int *sign)
 {
 	if (str[*i] == '-')
 		*sign = -1;
@@ -52,7 +52,7 @@ void			check_sign(const char *str, int *i, int *sign)
 	return ;
 }
 
-int				ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	unsigned long int	r;
 	int					i;
@@ -80,7 +80,7 @@ int				ft_atoi(const char *str)
 	return (sign * r);
 }
 
-int				fail_return(char *str)
+int	fail_return(char *str)
 {
 	printf("%s\n", str);
 	return (-1);

@@ -6,7 +6,7 @@
 #    By: iboeters <iboeters@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/12/15 13:21:22 by iboeters      #+#    #+#                  #
-#    Updated: 2021/03/15 15:23:37 by iboeters      ########   odam.nl          #
+#    Updated: 2021/06/28 15:30:00 by iboeters      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ all: $(NAME)
 	@gcc $(FLAGS) -c $^ -o $@
 
 $(NAME): $(OBJS)
-	@gcc $(FLAGS) $(OBJS) -I. $(INC) -o $(NAME)
+	@gcc $(FLAGS) $(OBJS) -I $(INC) -o $(NAME)
 	@echo "$(GREY)---------------------------------------------"
 	@echo "$(PINK)Run executable: \"./$(NAME)\"$(RESET)"
 

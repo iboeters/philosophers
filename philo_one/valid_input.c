@@ -6,21 +6,21 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/29 10:34:36 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/02 21:45:05 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/09/23 18:35:57 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		*invalid_return(char *str)
+int	*invalid_return(char *str)
 {
 	printf("%s\n", str);
 	return (NULL);
 }
 
-int		*save_input(int argc, char **argv, int *ret)
+int	*save_input(int argc, char **argv, int *ret)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i + 1 < argc)
@@ -39,7 +39,7 @@ int		*save_input(int argc, char **argv, int *ret)
 	return (NULL);
 }
 
-int		*valid_input(int argc, char **argv)
+int	*valid_input(int argc, char **argv)
 {
 	int		*ret;
 	int		size;

@@ -6,13 +6,13 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/29 14:38:37 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/02 10:03:04 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/09/23 18:36:12 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		join_threads(t_philos *philos, t_table *tab)
+int	join_threads(t_philos *philos, t_table *tab)
 {
 	int			i;
 
@@ -34,9 +34,9 @@ int		join_threads(t_philos *philos, t_table *tab)
 	return (0);
 }
 
-int		destroy_mutexes(t_table *tab)
+int	destroy_mutexes(t_table *tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < tab->input[0])
@@ -56,7 +56,7 @@ int		destroy_mutexes(t_table *tab)
 	return (0);
 }
 
-int		threading(t_philos *philos, t_table *tab)
+int	threading(t_philos *philos, t_table *tab)
 {
 	int			i;
 
@@ -64,7 +64,7 @@ int		threading(t_philos *philos, t_table *tab)
 	while (i < tab->input[0])
 	{
 		if (pthread_create(&(tab->threads[i]), NULL,
-		&eat_sleep_think_repeat, (void *)&(philos->p[i])) != 0)
+				&eat_sleep_think_repeat, (void *)&(philos->p[i])) != 0)
 		{
 			printf("Error creating threads\n");
 			return (-1);
@@ -72,7 +72,7 @@ int		threading(t_philos *philos, t_table *tab)
 		i++;
 	}
 	if (pthread_create(&(philos->thread_dead), NULL, &check_dead,
-	(void*)(philos)) != 0)
+			(void*)(philos)) != 0)
 	{
 		printf("Error creating threads\n");
 		return (-1);

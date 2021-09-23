@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/28 10:42:34 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/02 11:00:53 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/09/23 18:20:39 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	eat(t_philosopher *philo)
 	philo->eating = 0;
 }
 
-int		take_forks(t_philosopher *philo)
+int	take_forks(t_philosopher *philo)
 {
 	pthread_mutex_lock(&philo->tab->forks[philo->r_fork - 1]);
 	if (philo->dead_philo == 1)
@@ -44,14 +44,14 @@ void	*eat_sleep_think_repeat(void *p)
 	philo = (t_philosopher *)p;
 	if (philo->nr % 2 == 0)
 		usleep(175);
-	while (philo->dead_philo != 1 &&
-	!(philo->arg_5 == 1 && philo->times_eaten == philo->tab->input[4]))
+	while (philo->dead_philo != 1 && !(philo->arg_5 == 1
+			&& philo->times_eaten == philo->tab->input[4]))
 	{
 		if (take_forks(philo))
 			break ;
 		eat(philo);
-		if (philo->dead_philo == 1 ||
-		(philo->tab->arg_5 == 1 && philo->times_eaten == philo->tab->input[4]))
+		if (philo->dead_philo == 1 || (philo->tab->arg_5 == 1
+				&& philo->times_eaten == philo->tab->input[4]))
 			break ;
 		print(philo, "is sleeping");
 		usleep(philo->time_to_sleep * 1000);

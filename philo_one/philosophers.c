@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:09:29 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/02 21:52:32 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/09/23 18:17:57 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	init_philo(t_philosopher *philo, t_table *tab, int nr)
 	philo->tab = tab;
 }
 
-int		init_philosophers(t_philos *philos, t_table *tab)
+int	init_philosophers(t_philos *philos, t_table *tab)
 {
 	int	i;
 
 	i = 0;
-	philos->p = (t_philosopher *)malloc(tab->input[0] *
-	sizeof(t_philosopher));
+	philos->p = (t_philosopher *)malloc(tab->input[0]
+			* sizeof(t_philosopher));
 	if (!philos->p)
 	{
 		printf("Malloc fail\n");
@@ -52,9 +52,9 @@ int		init_philosophers(t_philos *philos, t_table *tab)
 	return (0);
 }
 
-int		init_table(int argc, char **argv, t_table *tab)
+int	init_table(int argc, char **argv, t_table *tab)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	tab->input = valid_input(argc, argv);
@@ -63,10 +63,10 @@ int		init_table(int argc, char **argv, t_table *tab)
 	tab->arg_5 = 0;
 	if (argc == 6)
 		tab->arg_5 = 1;
-	tab->threads = (pthread_t *)malloc(tab->input[0] *
-	sizeof(pthread_t));
-	tab->forks = (pthread_mutex_t *)malloc(tab->input[0] *
-	sizeof(pthread_mutex_t));
+	tab->threads = (pthread_t *)malloc(tab->input[0]
+			* sizeof(pthread_t));
+	tab->forks = (pthread_mutex_t *)malloc(tab->input[0]
+			* sizeof(pthread_mutex_t));
 	if (!tab->threads || !tab->forks)
 		return (fail_return("Malloc fail"));
 	while (i < tab->input[0])
@@ -80,7 +80,7 @@ int		init_table(int argc, char **argv, t_table *tab)
 	return (0);
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_table			tab;
 	t_philos		philos;

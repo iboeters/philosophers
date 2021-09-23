@@ -6,7 +6,7 @@
 /*   By: iboeters <iboeters@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/01/25 10:26:31 by iboeters      #+#    #+#                 */
-/*   Updated: 2021/02/02 21:51:46 by iboeters      ########   odam.nl         */
+/*   Updated: 2021/09/23 18:28:49 by iboeters      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 
-typedef struct			s_table{
+typedef struct s_table{
 	int					*input;
 	int					arg_5;
 	pthread_t			*threads;
@@ -28,7 +28,7 @@ typedef struct			s_table{
 	long long int		start_program;
 }						t_table;
 
-typedef struct			s_philosopher{
+typedef struct s_philosopher{
 	int					nr;
 	int					times_eaten;
 	int					time_to_die;
@@ -43,7 +43,7 @@ typedef struct			s_philosopher{
 	t_table				*tab;
 }						t_philosopher;
 
-typedef struct			s_philos{
+typedef struct s_philos{
 	t_philosopher		*p;
 	pthread_t			thread_dead;
 	int					dead_philo;
