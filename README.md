@@ -19,7 +19,7 @@ philosophers as processes and forks as semaphores.
 ## Usage
 ``make`` within each subdirectory, makes an executable with the same name as the directory.
 
-``./philo_one [number of philosophers] [time_to_die(ms)] [time_to_eat(ms)] [time_to_sleep(ms)] [number_of_times_each_philosopher_must_eat]``
+``./philo_one <number of philosophers> <time_to_die(ms)> <time_to_eat(ms)> <time_to_sleep(ms)> [number_of_times_each_philosopher_must_eat]``
 
 f.e. to start the program. Fifth argument is optional.
 
